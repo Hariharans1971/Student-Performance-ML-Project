@@ -11,3 +11,51 @@ affect the marks of students.
 
 A few visual aids like graphs and confusion matrix have been created, to show the results.
 Also additional heatmaps and other charts have been added to further demonstrate how data modelling and engineering works.
+
+
+# 🎓 Student Performance Prediction (ML Project)
+
+## 🚀 Overview
+
+This project predicts student performance using machine learning algorithms.
+
+## 🧠 Problem
+
+Educational institutions need a way to identify students who may need support.
+
+## 💡 Solution
+
+Built a machine learning model to predict performance based on student data.
+
+## 🛠 Tech Stack
+
+* Python
+* Pandas
+* NumPy
+* Scikit-learn
+* Matplotlib
+
+## 📊 Features
+
+* Data preprocessing
+* Model training
+* Accuracy evaluation
+* Visualization
+
+## ▶️ How to Run
+
+```bash
+git clone <your-repo-link>
+cd Student-Performance-Prediction
+pip install -r requirements.txt
+python Project.py
+```
+
+## 📈 Output
+
+(Add screenshots here later)
+
+## 📌 Future Improvements
+
+* Add Flask web app
+* Deploy online
