@@ -1,71 +1,62 @@
 # Student Performance Prediction — Machine Learning
 
-A beginner-friendly machine-learning project that explores student performance data, trains classification models, and visualizes patterns in the dataset.
+A beginner-friendly machine-learning project exploring the UCI-style student performance dataset with a reproducible evaluation pipeline and a separate interactive exploration script.
 
 ## Problem
 
-Educators need ways to understand which student-related factors may be associated with academic outcomes. This project explores a CSV dataset and compares machine-learning approaches to learn from those patterns.
+The dataset records student participation, school context, and an outcome label (`Class`). This project explores associations in that dataset; it does not establish that any feature causes an academic outcome.
 
-## What the project demonstrates
+## What is included
 
-- Loading and inspecting tabular data with Python
-- Data preprocessing and feature exploration
-- Training and comparing classification models
-- Evaluating predictions with appropriate metrics and a confusion matrix
-- Visualizing patterns with charts and heatmaps
+- `Project.py`: legacy interactive visual exploration and model-comparison walkthrough.
+- `evaluate_model.py`: non-interactive, reproducible evaluation using all non-target columns.
+- `tests/test_evaluate_model.py`: tests for reproducibility, metric bounds, confusion-matrix totals, target separation, and invalid datasets.
+- GitHub Actions: syntax validation, automated tests, and an evaluation run against the tracked CSV.
 
-## Technology
+## Evaluation design
 
-- Python
-- Pandas and NumPy
-- Scikit-learn
-- Matplotlib
+The reproducible pipeline:
+1. Validates the dataset and separates `Class` from the predictor columns.
+2. Uses a **stratified 75%/25% train/test split** with random seed `42`.
+3. Fits categorical one-hot encoding inside a pipeline, so preprocessing is learned from the training split.
+4. Compares a majority-class baseline with a Random Forest classifier using the same split.
+5. Reports accuracy, macro precision, macro recall, macro F1, confusion matrices, class counts, and the Random Forest's metric difference from baseline.
 
-## Run locally
+Run it locally:
 
-1. Clone the repository:
+```bash
+python -m pip install -r requirements.txt
+python evaluate_model.py
+```
 
-   ```bash
-   git clone https://github.com/Hariharans1971/Student-Performance-ML-Project.git
-   cd Student-Performance-ML-Project
-   ```
+Save a JSON report when you need to attach the exact results to a portfolio review:
 
-2. Create and activate a virtual environment:
+```bash
+python evaluate_model.py --json-out evaluation_results.json
+```
 
-   ```bash
-   python -m venv .venv
-   ```
+Run tests:
 
-   Windows PowerShell: `.venv\Scripts\Activate.ps1`
+```bash
+python -m unittest discover -s tests -v
+```
 
-   macOS/Linux: `source .venv/bin/activate`
+The benchmark output produced by the command and CI run is the source of the actual metric values; the repository does not hard-code an unverified accuracy claim.
 
-3. Install the packages used by the project:
+## Limitations
 
-   ```bash
-   python -m pip install pandas numpy scikit-learn matplotlib
-   ```
+- Metrics describe this dataset and one fixed holdout split; they are not a guarantee of generalization.
+- No repeated cross-validation or external validation is included yet.
+- The dataset is observational; results do not demonstrate causation.
+- This is an educational experiment and must not be used to make consequential decisions about individual students.
+- `Project.py` remains an interactive exploratory script. The reproducible evaluation path is `evaluate_model.py`.
 
-4. Run the project script:
+## Next steps
 
-   ```bash
-   python Project.py
-   ```
-
-If your local checkout uses a different entry-point filename, run the script that exists in the repository root.
-
-## Evaluation and limitations
-
-Model accuracy depends on the dataset, preprocessing, target definition, and train/test split. Do not treat predictions as a definitive judgment about an individual student. For a stronger evaluation, compare a simple baseline with multiple models, use a reproducible split, and report precision, recall, F1-score, and confusion matrix alongside accuracy.
-
-## Next improvements
-
-- Add a documented `requirements.txt`
-- Make the train/test split reproducible with a fixed random seed
-- Compare a baseline model against candidate classifiers
-- Add tests for data preprocessing and evaluation
-- Include representative output plots and clearly label the dataset source
+- Add repeated stratified cross-validation and per-class error analysis.
+- Record a versioned evaluation report with dataset provenance and checksum.
+- Compare a calibrated model against the same baseline on a separately held-out dataset.
 
 ## Author
 
-Hariharan S. — B.Tech CSE (AI & ML)
+Hariharan S. — B.Tech Computer Science and Engineering (AI & ML), 2026
