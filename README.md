@@ -41,7 +41,7 @@ Run tests:
 python -m unittest discover -s tests -v
 ```
 
-The benchmark output produced by the command and CI run is the source of the actual metric values; the repository does not hard-code an unverified accuracy claim.
+Latest recorded CI evaluation on the tracked CSV (fixed stratified 75%/25% split, seed 42): 480 rows and 16 predictors. The Random Forest achieved accuracy 0.8083, macro precision 0.8269, macro recall 0.8033, and macro-F1 0.8118. The majority-class baseline achieved accuracy 0.4417 and macro-F1 0.2042. These are dataset-specific holdout results, not external validation and not a basis for decisions about individual students. Re-run `python evaluate_model.py` to reproduce the report for the current dataset.
 
 ## Limitations
 
